@@ -6,13 +6,15 @@
 #    By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 08:32:05 by vbaudot           #+#    #+#              #
-#    Updated: 2017/12/12 15:42:23 by vbaudot          ###   ########.fr        #
+#    Updated: 2017/12/13 16:44:23 by vbaudot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 NAME = ft_ls
 SRC = main.c\
+		ft_ls.c\
+		print_usage.c\
 
 OBJ = $(SRC:.c=.o)
 DEBUG = -g3 -fsanitize=address

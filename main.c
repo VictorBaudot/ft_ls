@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 09:43:26 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/12 15:39:24 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/13 16:46:58 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 int			main(int ac, char **av)
 {
-	(void)ac;
-	(void)av;
-	ft_putstr("Yo.");
+	int i;
+
+	i = 0;
+	if (ac == 1)
+		ft_ls(".");
+	else
+		while (++i < ac)
+			ft_ls(av[i]);
 	return (EXIT_SUCCESS);
 }
