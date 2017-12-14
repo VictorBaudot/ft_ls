@@ -6,7 +6,7 @@
 #    By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/09 10:33:26 by vbaudot           #+#    #+#              #
-#    Updated: 2017/12/10 13:30:34 by vbaudot          ###   ########.fr        #
+#    Updated: 2017/11/30 15:23:34 by vbaudot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ ft_strjoin.c ft_strlcat.c ft_strlen.c ft_strmap.c ft_strmapi.c ft_strncat.c\
 ft_strncmp.c ft_strncpy.c ft_strnequ.c ft_strnew.c ft_strnstr.c\
 ft_strrchr.c ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtrim.c ft_tolower.c\
 ft_toupper.c ft_strreverse.c get_next_line.c ft_split_whitespaces.c\
-ft_print_words_tables.c ft_putfnbr.c
+ft_print_words_tables.c
 # $(shell find . | grep "\.c" | sed "s/^\.\///" | tr "\n" " ")
 OBJ=$(SRC:.c=.o)
 # $(shell find . | grep "\.c" | sed "s/^\.\///g" | sed  "s/\.c/\.o/g" | tr "\n" " ")

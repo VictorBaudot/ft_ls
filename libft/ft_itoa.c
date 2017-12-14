@@ -3,63 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaudot <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 13:54:27 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/11/13 10:06:06 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/14 11:15:41 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*ft_itoa_bis(char *ret, int n, long i, long m)
+static int			ft_nblen(int nb)
 {
-	long p;
-
-	p = ft_abs(n);
-	if (n == 0)
-		return (ft_strdup("0"));
-	i = 0;
-	while (p != 0)
-	{
-		ret[i] = (p % 10) + 48;
-		p /= 10;
-		i++;
-	}
-	if (m == 1)
-	{
-		ret[i] = '-';
-		i++;
-	}
-	ret[i] = '\0';
-	return (ft_strreverse(ret));
+	if (!nb)
+		return (0);
+	return (ft_nblen(nb / 10) + 1);
 }
 
-char		*ft_itoa(int n)
+char				*ft_itoa(int nb)
 {
-	long	i;
-	long	m;
-	int		count;
-	char	*ret;
+	char	*res;
+	int		len;
+	int		is_neg;
+	long	tmp;
 
-	i = 1;
-	m = 0;
-	count = 1;
-	if (n < 0)
-		m = 1;
-	if (m == 1)
-		while (-i >= n)
-		{
-			i *= 10;
-			count++;
-		}
-	else
-		while (i <= n)
-		{
-			i *= 10;
-			count++;
-		}
-	if (!(ret = (char *)malloc(sizeof(char) * (count + 1 + m))))
-		return (NULL);
-	return (ft_itoa_bis(ret, n, i, m));
+	tmp = nb;
+	len = (tmp ? ft_nblen(tmp) : 1);
+	is_neg = tmp < 0 ? 1 : 0;
+	if (!(res = (char*)malloc(sizeof(char) * (len + is_neg + 1))))
+		exit(EXIT_FAILURE);
+	res[len + is_neg] = '\0';
+	if (is_neg)
+	{
+		res[0] = '-';
+		tmp *= -1;
+	}
+	len += is_neg;
+	while (len > 0 + is_neg)
+	{
+		res[--len] = (tmp % 10) + '0';
+		tmp /= 10;
+	}
+	return (res);
 }

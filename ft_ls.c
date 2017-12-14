@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 16:17:00 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/13 17:40:10 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/14 16:58:55 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ls_file(char *name)
 {
 	struct stat sb;
-	struct tm tm;
+	// struct tm tm;
 
 	if (stat(name, &sb) == -1) {
 		perror("stat");
@@ -49,28 +49,31 @@ void	ls_file(char *name)
 	printf("Dernier changement d’état :        %s", ctime(&sb.st_ctime));
 	printf("Dernier accès au fichier :         %s", ctime(&sb.st_atime));
 	printf("Dernière modification du fichier:  %s", ctime(&sb.st_mtime));
-	tm = 5;
-	printf("%d %s\n", tm.tm_hour, name);
+	// tm = 5;
+	// printf("%d %s\n", tm.tm_hour, name);
 	exit(EXIT_SUCCESS);
 }
 
-void	ft_ls(char *name)
+void	ft_ls(char *options, char *name)
 {
 	DIR *dirp;
 	struct dirent *dp;
 	int len;
 
-//	printf("%s\n", name);
+	(void)options;
 	dirp = opendir(name);
 	if ((dirp = opendir(name)) == NULL)
 	{
-		ls_file(name);
+		printf("%s", name);
+		//ls_file(name);
 		return ;
 	}
+	printf("\n%s:\n", name);
 	len = strlen(name);
 	while ((dp = readdir(dirp)) != NULL)
 	{
-		printf("%s\n", dp->d_name);
+		if (dp->d_name[0] != '.')
+			printf("%s\n", dp->d_name);
 	}
 	(void)closedir(dirp);
 }

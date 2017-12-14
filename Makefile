@@ -6,7 +6,7 @@
 #    By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 08:32:05 by vbaudot           #+#    #+#              #
-#    Updated: 2017/12/13 16:44:23 by vbaudot          ###   ########.fr        #
+#    Updated: 2017/12/14 16:13:43 by vbaudot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME = ft_ls
 SRC = main.c\
 		ft_ls.c\
 		print_usage.c\
+		options_init.c\
 
 OBJ = $(SRC:.c=.o)
 DEBUG = -g3 -fsanitize=address

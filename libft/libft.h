@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 13:48:45 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/10 13:35:54 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/06 13:18:58 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 # include <string.h>
 # include <limits.h>
 # include <fcntl.h>
-# include <float.h>
-# include <math.h>
 
 typedef struct	s_list
 {
@@ -30,7 +28,6 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
-void			ft_putfnbr(long double nbr, int power);
 char			**ft_split_whitespaces(char *str);
 char			**ft_split_whitespaces(char *str);
 int				get_next_line(const int fd, char **line);
