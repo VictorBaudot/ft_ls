@@ -6,52 +6,39 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 16:17:00 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/14 16:58:55 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/15 18:31:00 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	ls_file(char *name)
+void	ls_file(const char *name)
 {
 	struct stat sb;
-	// struct tm tm;
+	char *date;
 
-	if (stat(name, &sb) == -1) {
+	printf("%s\n", name);
+	if (lstat(name, &sb) == -1) {
 		perror("stat");
 		exit(EXIT_SUCCESS);
 	}
-
-	printf("Type de fichier :                  ");
-
-	switch (sb.st_mode & S_IFMT) {
-		case S_IFBLK:  printf("périphérique de bloc\n");      break;
-		case S_IFCHR:  printf("périphérique de caractère\n"); break;
-		case S_IFDIR:  printf("répertoire\n");                break;
-		case S_IFIFO:  printf("FIFO/tube\n");                 break;
-		case S_IFLNK:  printf("lien symbolique\n");           break;
-		case S_IFREG:  printf("fichier ordinaire\n");         break;
-		case S_IFSOCK: printf("socket\n");                    break;
-		default:       printf("inconnu ?\n");                 break;
-	}
-	printf("Numéro d'inœud :                   %ld\n", (long) sb.st_ino);
-	printf("Mode :                             %lo (octal)\n", (unsigned long) sb.st_mode);
-	printf("Nombre de liens :                  %ld\n", (long) sb.st_nlink);
-	printf("Propriétaires :                    UID=%ld   GID=%ld\n",
-	(long) sb.st_uid, (long) sb.st_gid);
-
-	printf("Taille de bloc d’E/S :             %ld octets\n",
-	(long) sb.st_blksize);
-	printf("Taille du fichier :                %lld octets\n",
-	(long long) sb.st_size);
-	printf("Blocs alloués :                    %lld\n",
-	(long long) sb.st_blocks);
-	printf("Dernier changement d’état :        %s", ctime(&sb.st_ctime));
-	printf("Dernier accès au fichier :         %s", ctime(&sb.st_atime));
-	printf("Dernière modification du fichier:  %s", ctime(&sb.st_mtime));
-	// tm = 5;
-	// printf("%d %s\n", tm.tm_hour, name);
-	exit(EXIT_SUCCESS);
+	printf( (S_ISDIR(sb.st_mode)) ? "d" : "-");
+    printf( (sb.st_mode & S_IRUSR) ? "r" : "-");
+    printf( (sb.st_mode & S_IWUSR) ? "w" : "-");
+    printf( (sb.st_mode & S_IXUSR) ? "x" : "-");
+    printf( (sb.st_mode & S_IRGRP) ? "r" : "-");
+    printf( (sb.st_mode & S_IWGRP) ? "w" : "-");
+    printf( (sb.st_mode & S_IXGRP) ? "x" : "-");
+    printf( (sb.st_mode & S_IROTH) ? "r" : "-");
+    printf( (sb.st_mode & S_IWOTH) ? "w" : "-");
+    printf( (sb.st_mode & S_IXOTH) ? "x" : "-");
+	printf("  %ld ", (long) sb.st_nlink);
+	printf("%s ", getpwuid(sb.st_uid)->pw_name);
+	printf(" %s ", getgrgid(sb.st_gid)->gr_name);
+	printf(" %lld ", (long long) sb.st_size);
+	date = ft_strsub(ctime(&sb.st_mtime), 4, 12);
+	printf("%s ", date);
+	printf("%s\n", name);
 }
 
 void	ft_ls(char *options, char *name)
@@ -64,16 +51,18 @@ void	ft_ls(char *options, char *name)
 	dirp = opendir(name);
 	if ((dirp = opendir(name)) == NULL)
 	{
-		printf("%s", name);
-		//ls_file(name);
+		has(options, 'l') ? ls_file(name) : printf("%s\n", name);
 		return ;
 	}
-	printf("\n%s:\n", name);
+	if (ft_strcmp(".", name) != 0)
+		printf("%s:\n", name);
 	len = strlen(name);
 	while ((dp = readdir(dirp)) != NULL)
 	{
-		if (dp->d_name[0] != '.')
-			printf("%s\n", dp->d_name);
+		if (dp->d_name[0] == '.' && has(options, 'a'))
+			has(options, 'l') ? ls_file(dp->d_name) : printf("%s\n", dp->d_name);
+		else if (dp->d_name[0] != '.')
+			has(options, 'l') ? ls_file(dp->d_name) : printf("%s\n", dp->d_name);
 	}
 	(void)closedir(dirp);
 }

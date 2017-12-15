@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 15:37:18 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/14 15:21:07 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/15 17:32:09 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@
 # include <dirent.h>
 # include <time.h>
 # include <pwd.h>
+# include <grp.h>
 # include <uuid/uuid.h>
+# include <sys/xattr.h>
 # include "libft.h"
 
 /*
@@ -36,7 +38,11 @@ typedef struct	s_ls
 }				t_ls;
 */
 
-void			sort_files_dir(int i, int ac, char ***av, char *options);
+void			rev_ascii(int i, int ac, char ***av);
+int				has(const char *options, const char option);
+int				is_directory(const char *path);
+void			sort_files_by_type(int i, int ac, char ***av, char *options);
+void			sort_ascii(int i, int ac, char ***av);
 char			*options_init(int *i, int ac, char **av);
 void			ft_ls(char *options, char *name);
 void			print_usage(void);
