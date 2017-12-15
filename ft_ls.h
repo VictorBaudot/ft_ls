@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 15:37:18 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/15 23:08:12 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/15 23:38:35 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct	s_pad
 
 void			init_padding(t_pad *pad, char *name, char *options);
 void			ls_file(const char *name, t_pad pad);
-void			count_files(char *options, DIR *dirp);
+void			count_blocks(char *options, DIR *dirp);
 void			rev_ascii(int i, int ac, char ***av);
 int				has(const char *options, const char option);
 int				is_directory(const char *path);

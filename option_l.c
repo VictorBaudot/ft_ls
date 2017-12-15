@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 22:30:11 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/15 23:21:28 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/15 23:38:30 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static long	nb_blocks(const char *name)
 	return ((long) sb.st_blocks);
 }
 
-void		count_files(char *options, DIR *dirp)
+void		count_blocks(char *options, DIR *dirp)
 {
 	struct dirent *dp;
 	long nb;
