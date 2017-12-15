@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 15:37:18 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/15 17:32:09 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/15 23:08:12 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@
 # include <sys/xattr.h>
 # include "libft.h"
 
-/*
-typedef struct	s_ls
+typedef struct	s_pad
 {
-	char		*options;
-	char		*primary;
-	char		*secondary;
-}				t_ls;
-*/
+	int			pad_links;
+	int			pad_size;
+}				t_pad;
 
+void			init_padding(t_pad *pad, char *name, char *options);
+void			ls_file(const char *name, t_pad pad);
+void			count_files(char *options, DIR *dirp);
 void			rev_ascii(int i, int ac, char ***av);
 int				has(const char *options, const char option);
 int				is_directory(const char *path);
