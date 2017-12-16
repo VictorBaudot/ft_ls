@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 22:30:11 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/15 23:38:30 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/16 00:29:00 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void		ls_file(const char *name, t_pad pad)
 	date = ft_strsub(ctime(&sb.st_mtime), 4, 12);
 	printf("%s ", date);
 	printf("%s\n", name);
+	free(date);
 }
 
 static long	nb_blocks(const char *name)
