@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 22:30:11 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/16 00:29:00 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/17 14:18:48 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ void		ls_file(const char *name, t_pad pad)
 		perror("lstat");
 		exit(EXIT_SUCCESS);
 	}
-	printf((S_ISDIR(sb.st_mode)) ? "d" : "-");
-	printf((sb.st_mode & S_IRUSR) ? "r" : "-");
-	printf((sb.st_mode & S_IWUSR) ? "w" : "-");
-	printf((sb.st_mode & S_IXUSR) ? "x" : "-");
-	printf((sb.st_mode & S_IRGRP) ? "r" : "-");
-	printf((sb.st_mode & S_IWGRP) ? "w" : "-");
-	printf((sb.st_mode & S_IXGRP) ? "x" : "-");
-	printf((sb.st_mode & S_IROTH) ? "r" : "-");
-	printf((sb.st_mode & S_IWOTH) ? "w" : "-");
-	printf((sb.st_mode & S_IXOTH) ? "x" : "-");
+	putf((S_ISDIR(sb.st_mode)) ? "d" : "-");
+	putf((sb.st_mode & S_IRUSR) ? "r" : "-");
+	putf((sb.st_mode & S_IWUSR) ? "w" : "-");
+	putf((sb.st_mode & S_IXUSR) ? "x" : "-");
+	putf((sb.st_mode & S_IRGRP) ? "r" : "-");
+	putf((sb.st_mode & S_IWGRP) ? "w" : "-");
+	putf((sb.st_mode & S_IXGRP) ? "x" : "-");
+	putf((sb.st_mode & S_IROTH) ? "r" : "-");
+	putf((sb.st_mode & S_IWOTH) ? "w" : "-");
+	putf((sb.st_mode & S_IXOTH) ? "x" : "-");
 	nb_l = (long) sb.st_nlink;
 	pad_l = (nb_l > 0) ? 0 : 1;
 	while (nb_l > 0)
@@ -46,10 +46,10 @@ void		ls_file(const char *name, t_pad pad)
 	}
 	i = -1;
 	while (++i < pad.pad_links - pad_l)
-		printf(" ");
-	printf("%ld ", (long) sb.st_nlink);
-	printf("%s ", getpwuid(sb.st_uid)->pw_name);
-	printf(" %s ", getgrgid(sb.st_gid)->gr_name);
+		putf(" ");
+	putf("%l ", (long) sb.st_nlink);
+	putf("%s ", getpwuid(sb.st_uid)->pw_name);
+	putf(" %s ", getgrgid(sb.st_gid)->gr_name);
 	nb_s = (long long) sb.st_size;
 	pad_s = (nb_s > 0) ? 0 : 1;
 	while (nb_s > 0)
@@ -59,11 +59,11 @@ void		ls_file(const char *name, t_pad pad)
 	}
 	i = -1;
 	while (++i < pad.pad_size - pad_s)
-		printf(" ");
-	printf("%lld ", (long long) sb.st_size);
+		putf(" ");
+	putf("%L ", (long long) sb.st_size);
 	date = ft_strsub(ctime(&sb.st_mtime), 4, 12);
-	printf("%s ", date);
-	printf("%s\n", name);
+	putf("%s ", date);
+	putf("%s\n", name);
 	free(date);
 }
 
@@ -92,6 +92,6 @@ void		count_blocks(char *options, DIR *dirp)
 		else if (dp->d_name[0] != '.')
 			nb += nb_blocks(dp->d_name);
 	}
-	printf("total %ld\n", nb);
+	putf("total %l\n", nb);
 	(void)closedir(dirp);
 }

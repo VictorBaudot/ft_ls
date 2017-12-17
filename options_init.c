@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 15:18:44 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/14 15:19:14 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/17 14:39:13 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ char	*options_init(int *i, int ac, char **av)
 		}
 	}
 	while (options[++k] && k < 5)
-		options[k] = '\0';
+		options[k] = '.';
 	return (options);
 }

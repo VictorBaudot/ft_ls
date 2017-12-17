@@ -6,7 +6,7 @@
 #    By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/09 10:33:26 by vbaudot           #+#    #+#              #
-#    Updated: 2017/11/30 15:23:34 by vbaudot          ###   ########.fr        #
+#    Updated: 2017/12/17 12:45:37 by vbaudot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,22 +15,28 @@ CFLAGS=-Wall -Werror -Wextra
 NAME=libft.a
 NAME_P=$(shell echo $(NAME) | tr ' ' '\n' | sed "s/\.[acoh]$///g" | tr '\n' ' ' | sed "s/ $///g")
 SRC=\
-ft_abs.c ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c\
-ft_isdigit.c ft_islower.c ft_isprint.c ft_isupper.c ft_itoa.c\
-ft_lstadd.c ft_lstdel.c ft_lstdelone.c ft_lstiter.c ft_lstmap.c\
-ft_lstnew.c ft_memalloc.c ft_memccpy.c ft_memchr.c ft_memcmp.c ft_memcpy.c\
-ft_memdel.c ft_memmove.c ft_memset.c ft_putchar.c ft_putchar_fd.c ft_putendl.c\
-ft_putendl_fd.c ft_putnbr.c ft_putnbr_fd.c ft_putstr.c ft_putstr_fd.c\
-ft_strcat.c ft_strchr.c ft_strclr.c ft_strcmp.c ft_lstprint.c ft_lstappend.c\
-ft_strcpy.c ft_strdel.c ft_strdup.c ft_strequ.c ft_striter.c ft_striteri.c\
-ft_strjoin.c ft_strlcat.c ft_strlen.c ft_strmap.c ft_strmapi.c ft_strncat.c\
-ft_strncmp.c ft_strncpy.c ft_strnequ.c ft_strnew.c ft_strnstr.c\
-ft_strrchr.c ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtrim.c ft_tolower.c\
-ft_toupper.c ft_strreverse.c get_next_line.c ft_split_whitespaces.c\
-ft_print_words_tables.c
-# $(shell find . | grep "\.c" | sed "s/^\.\///" | tr "\n" " ")
+ft_abs.c str/ft_atoi.c str/ft_bzero.c is/ft_isalnum.c is/ft_isalpha.c\
+is/ft_isascii.c is/ft_isdigit.c is/ft_islower.c is/ft_isprint.c is/ft_isupper.c\
+str/ft_itoa.c lst/ft_lstadd.c lst/ft_lstdel.c lst/ft_lstdelone.c\
+lst/ft_lstiter.c lst/ft_lstmap.c lst/ft_lstnew.c mem/ft_memalloc.c\
+mem/ft_memccpy.c mem/ft_memchr.c mem/ft_memcmp.c mem/ft_memcpy.c\
+mem/ft_memdel.c mem/ft_memmove.c mem/ft_memset.c put/ft_putchar.c\
+put/ft_putchar_fd.c put/ft_putendl.c put/ft_putendl_fd.c put/ft_putnbr.c\
+put/ft_putnbr_fd.c put/ft_putstr.c put/ft_putstr_fd.c str/ft_strcat.c\
+str/ft_strchr.c str/ft_strclr.c str/ft_strcmp.c lst/ft_lstprint.c\
+lst/ft_lstappend.c str/ft_strcpy.c str/ft_strdel.c str/ft_strdup.c\
+str/ft_strequ.c str/ft_striter.c str/ft_striteri.c str/ft_strjoin.c\
+str/ft_strlcat.c str/ft_strlen.c str/ft_strmap.c str/ft_strmapi.c\
+str/ft_strncat.c str/ft_strncmp.c str/ft_strncpy.c str/ft_strnequ.c\
+str/ft_strnew.c str/ft_strnstr.c str/ft_strrchr.c str/ft_strsplit.c\
+str/ft_strstr.c str/ft_strsub.c str/ft_strtrim.c str/ft_tolower.c\
+str/ft_toupper.c str/ft_strreverse.c get_next_line.c str/ft_split_whitespaces.c\
+put/ft_print_words_tables.c put/ft_putlnbr.c put/ft_putllnbr.c put/ft_putfnbr.c\
+put/putf/putf.c put/putf/ft_check.c put/putf/ft_init_tab.c put/putf/ft_args_1.c\
+put/putf/ft_args_2.c put/putf/ft_args_3.c put/putf/ft_convert_base.c\
+put/putf/print_usage.c\
+
 OBJ=$(SRC:.c=.o)
-# $(shell find . | grep "\.c" | sed "s/^\.\///g" | sed  "s/\.c/\.o/g" | tr "\n" " ")
 
 YEL="\\033[33m"
 BLU="\\033[34m"
@@ -59,7 +65,7 @@ $(NAME) : $(OBJ)
 
 clean :
 	@printf "[$(NAME_P)] rm all $(BOL)$(RED) obj file$(NC)"
-	@rm -f $(OBJ)
+	@rm -f $(OBJ) */*.o
 	@printf '\t\t\t'$(OK)'\n'
 
 fclean : clean

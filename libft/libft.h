@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 13:48:45 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/06 13:18:58 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/17 12:26:19 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 # include <stdlib.h>
 # include <string.h>
 # include <limits.h>
+# include <math.h>
 # include <fcntl.h>
+# include "put/putf/putf.h"
 
 typedef struct	s_list
 {
@@ -28,7 +30,9 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
-char			**ft_split_whitespaces(char *str);
+void			ft_putlnbr(long n);
+void			ft_putllnbr(long long n);
+void			ft_putfnbr(long double nbr, int power);
 char			**ft_split_whitespaces(char *str);
 int				get_next_line(const int fd, char **line);
 long			ft_abs(int n);
