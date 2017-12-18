@@ -6,7 +6,7 @@
 #    By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/09 10:33:26 by vbaudot           #+#    #+#              #
-#    Updated: 2017/12/17 12:45:37 by vbaudot          ###   ########.fr        #
+#    Updated: 2017/12/17 15:23:46 by vbaudot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ str/ft_toupper.c str/ft_strreverse.c get_next_line.c str/ft_split_whitespaces.c\
 put/ft_print_words_tables.c put/ft_putlnbr.c put/ft_putllnbr.c put/ft_putfnbr.c\
 put/putf/putf.c put/putf/ft_check.c put/putf/ft_init_tab.c put/putf/ft_args_1.c\
 put/putf/ft_args_2.c put/putf/ft_args_3.c put/putf/ft_convert_base.c\
-put/putf/print_usage.c\
+put/putf/print_usage.c str/ft_str3join.c\
 
 OBJ=$(SRC:.c=.o)
 

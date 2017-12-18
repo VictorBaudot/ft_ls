@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 22:58:41 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/15 23:22:11 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/18 13:21:27 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static int		check_pad_s(char *name, int pad_size)
 	nb = 1;
 	if (lstat(name, &sb) == -1)
 	{
-		perror("lstat");
+		putf("pad_s: %s: ", name);
+		perror("");
 		exit(EXIT_SUCCESS);
 	}
 	nb_s = (long long) sb.st_size;
@@ -42,7 +43,8 @@ static int		check_pad_l(char *name, int pad_size)
 	nb = 2;
 	if (lstat(name, &sb) == -1)
 	{
-		perror("lstat");
+		putf("pad_l: %s: ", name);
+		perror("");
 		exit(EXIT_SUCCESS);
 	}
 	nb_l = (long) sb.st_nlink;
@@ -57,6 +59,7 @@ static int		check_pad_l(char *name, int pad_size)
 void			init_padding(t_pad *pad, char *name, char *options)
 {
 	DIR *dirp;
+	char *path;
 	struct dirent *dp;
 
 	pad->pad_links = 2;
@@ -68,16 +71,18 @@ void			init_padding(t_pad *pad, char *name, char *options)
 	}
 	while ((dp = readdir(dirp)) != NULL)
 	{
+		path = ft_str3join(name, "/", dp->d_name);
 		if (dp->d_name[0] == '.' && has(options, 'a'))
 		{
-			pad->pad_links = check_pad_l(dp->d_name, pad->pad_links);
-			pad->pad_size = check_pad_s(dp->d_name, pad->pad_size);
+			pad->pad_links = check_pad_l(path, pad->pad_links);
+			pad->pad_size = check_pad_s(path, pad->pad_size);
 		}
 		else if (dp->d_name[0] != '.')
 		{
-			pad->pad_links = check_pad_l(dp->d_name, pad->pad_links);
-			pad->pad_size = check_pad_s(dp->d_name, pad->pad_size);
+			pad->pad_links = check_pad_l(path, pad->pad_links);
+			pad->pad_size = check_pad_s(path, pad->pad_size);
 		}
+		free(path);
 	}
 	(void)closedir(dirp);
 }

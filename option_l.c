@@ -6,13 +6,13 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 22:30:11 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/17 14:18:48 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/18 13:45:43 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void		ls_file(const char *name, t_pad pad)
+void		ls_file(const char *path, t_pad pad)
 {
 	struct stat	sb;
 	char		*date;
@@ -22,9 +22,10 @@ void		ls_file(const char *name, t_pad pad)
 	long		nb_l;
 	long long	nb_s;
 
-	if (lstat(name, &sb) == -1)
+	if (lstat(path, &sb) == -1)
 	{
-		perror("lstat");
+		putf("ls_file: %s: ", path);
+		perror("");
 		exit(EXIT_SUCCESS);
 	}
 	putf((S_ISDIR(sb.st_mode)) ? "d" : "-");
@@ -63,7 +64,6 @@ void		ls_file(const char *name, t_pad pad)
 	putf("%L ", (long long) sb.st_size);
 	date = ft_strsub(ctime(&sb.st_mtime), 4, 12);
 	putf("%s ", date);
-	putf("%s\n", name);
 	free(date);
 }
 
@@ -73,25 +73,32 @@ static long	nb_blocks(const char *name)
 
 	if (lstat(name, &sb) == -1)
 	{
-		perror("lstat");
+		putf("nb_blocks: %s: ", name);
+		perror("");
 		exit(EXIT_SUCCESS);
 	}
 	return ((long) sb.st_blocks);
 }
 
-void		count_blocks(char *options, DIR *dirp)
+void		count_blocks(char *options, DIR *dirp, char *name)
 {
 	struct dirent *dp;
+	char *path;
 	long nb;
+	int flag;
 
 	nb = 0;
+	flag = 0;
 	while ((dp = readdir(dirp)) != NULL)
 	{
+		flag++;
+		path = ft_str3join(name, "/", dp->d_name);
 		if (dp->d_name[0] == '.' && has(options, 'a'))
-			nb += nb_blocks(dp->d_name);
+			nb += nb_blocks(path);
 		else if (dp->d_name[0] != '.')
-			nb += nb_blocks(dp->d_name);
+			nb += nb_blocks(path);
+		free(path);
 	}
-	putf("total %l\n", nb);
+	(flag > 2) ? putf("total %l\n", nb) : 0;
 	(void)closedir(dirp);
 }

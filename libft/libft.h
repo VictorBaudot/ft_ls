@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 13:48:45 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/17 12:26:19 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/17 15:23:29 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
+char			*ft_str3join(char const *s1, char const *s2, char const *s3);
 void			ft_putlnbr(long n);
 void			ft_putllnbr(long long n);
 void			ft_putfnbr(long double nbr, int power);

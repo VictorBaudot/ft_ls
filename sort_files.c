@@ -6,16 +6,18 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 16:36:59 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/16 01:53:46 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/18 14:02:15 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	sort_time(int i, int ac, char ***av)
+void	sort_time(int i, int ac, char ***av, char *name)
 {
 	int j;
 	int k;
+	char *path1;
+	char *path2;
 	char *tmp;
 	struct stat sb1;
 	struct stat sb2;
@@ -24,11 +26,13 @@ void	sort_time(int i, int ac, char ***av)
 	while (++j < ac - i - 1)
 	{
 		k = -1;
-		while (++k < ac - i - 1)
+		while (++k < ac - i)
 		{
-			if (lstat((*av)[i + k], &sb1) == -1 || lstat((*av)[i + k + 1], &sb2))
+			path1 = ft_str3join(name, "/", (*av)[i + k]);
+			path2 = ft_str3join(name, "/", (*av)[i + k + 1]);
+			if (lstat(path1, &sb1) == -1 || lstat(path2, &sb2))
 			{
-				perror("lstat");
+				perror("sort_files");
 				exit(EXIT_SUCCESS);
 			}
 			if (sb2.st_mtime > sb1.st_mtime)
@@ -37,6 +41,8 @@ void	sort_time(int i, int ac, char ***av)
 				(*av)[i + k + 1] = (*av)[i + k];
 				(*av)[i + k] = tmp;
 			}
+			free(path1);
+			free(path2);
 		}
 	}
 }
@@ -65,7 +71,7 @@ void	rev_ascii(int i, int ac, char ***av)
 	while (++j < ac - i - 1)
 	{
 		k = -1;
-		while (++k < ac - i - 1)
+		while (++k < ac - i)
 		{
 			if (ft_strcmp((*av)[i + k], (*av)[i + k + 1]) < 0)
 			{
@@ -87,7 +93,7 @@ void	sort_ascii(int i, int ac, char ***av)
 	while (++j < ac - i - 1)
 	{
 		k = -1;
-		while (++k < ac - i - 1)
+		while (++k < ac - i)
 		{
 			if (ft_strcmp((*av)[i + k], (*av)[i + k + 1]) > 0)
 			{
@@ -110,7 +116,7 @@ void	sort_files_by_type(int i, int ac, char ***av, char *options)
 	while (++j < ac - i - 1)
 	{
 		k = -1;
-		while (++k < ac - i - 1)
+		while (++k < ac - i)
 		{
 			if (is_directory((*av)[i + k]) && !is_directory((*av)[i + k + 1]))
 			{

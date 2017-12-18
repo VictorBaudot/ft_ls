@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 16:17:00 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/17 14:52:59 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/18 14:00:20 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ int		count_files(DIR *dirp)
 	return (nb);
 }
 
-void	ft_ls(char *options, char *name)
+void	ft_ls(char *options, char *name, int ac_i)
 {
 	DIR *dirp;
+	DIR *sub;
 	struct dirent *dp;
-//	struct stat sb;
+	char *path;
 	char **files;
 	int nb_f;
 	int i;
@@ -40,10 +41,9 @@ void	ft_ls(char *options, char *name)
 		has(options, 'l') ? ls_file(name, pad) : putf("%s\n", name);
 		return ;
 	}
-	(has(options, 'l')) ? count_blocks(options, dirp) : 0;
+	((has(options, 'R') && has(name, '/')) || ac_i > 1) ? putf("\n%s:\n", name) : 0;
+	(has(options, 'l')) ? count_blocks(options, dirp, name) : 0;
 	(has(options, 'l')) ? (dirp = opendir(name)) : 0;
-	if (ft_strcmp(".", name) != 0)
-		putf("%s:\n", name);
 	nb_f = count_files(dirp);
 	files = (char **)malloc(sizeof(char *) * (nb_f + 1));
 	files[nb_f] = 0;
@@ -56,23 +56,39 @@ void	ft_ls(char *options, char *name)
 	while ((dp = readdir(dirp)) != NULL)
 		files[++i] = ft_strdup(dp->d_name);
 	sort_ascii(0, nb_f - 1, &files);
-	(has(options, 't')) ? sort_time(0, nb_f - 1, &files) : 0;
+	(has(options, 't')) ? sort_time(0, nb_f - 1, &files, name) : 0;
 	(has(options, 'r')) ? sort_rev(0, nb_f - 1, &files) : 0;
 	i = -1;
 	while (files[++i])
-	{/*
-		if (lstat(name, &sb) == -1)
-		{
-			perror("lstat");
-			exit(EXIT_SUCCESS);
-		}
-		if
-		else */
+	{
+		path = ft_str3join(name, "/", files[i]);
 		if (files[i][0] == '.' && has(options, 'a'))
-			has(options, 'l') ? ls_file(files[i], pad) : putf("%s\n", files[i]);
+		{
+			has(options, 'l') ? ls_file(path, pad) : 0;
+			((is_directory(path) && has(options, 'G'))) ? putf(B_CY "%s" NC "\n", files[i]) : putf("%s\n", files[i]);
+		}
 		else if (files[i][0] != '.')
-			has(options, 'l') ? ls_file(files[i], pad) : putf("%s\n", files[i]);
+		{
+			has(options, 'l') ? ls_file(path, pad) : 0;
+			((is_directory(path) && has(options, 'G'))) ? putf(B_CY "%s" NC "\n", files[i]) : putf("%s\n", files[i]);
+		}
+		free(path);
 	}
+	i = -1;
+	if (has(options, 'R'))
+		while (files[++i])
+		{
+			path = ft_str3join(name, "/", files[i]);
+			if ((sub = opendir(path)) != NULL &&
+			ft_strcmp(files[i], ".") != 0 && ft_strcmp(files[i], "..") != 0)
+			{
+				ft_ls(options, path, ac_i);
+				(closedir(sub) == -1) ? perror("closedir") : 0;
+			}
+			else if (ft_strcmp(files[i], ".") == 0 || ft_strcmp(files[i], "..") == 0)
+				(closedir(sub) == -1) ? perror("closedir") : 0;
+			free(path);
+		}
 	(void)closedir(dirp);
 	i = -1;
 	while (files[++i])

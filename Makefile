@@ -6,7 +6,7 @@
 #    By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 08:32:05 by vbaudot           #+#    #+#              #
-#    Updated: 2017/12/17 14:50:30 by vbaudot          ###   ########.fr        #
+#    Updated: 2017/12/18 12:29:37 by vbaudot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC = main.c\
 
 OBJ = $(SRC:.c=.o)
 DEBUG =# -g3 -fsanitize=address
+
 CFLAGS = -Wall -Werror -Wextra
 LIBFT = -L./libft -lft
 
