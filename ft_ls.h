@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 15:37:18 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/18 14:00:03 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/18 14:07:43 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef struct	s_pad
 {
 	int			pad_links;
 	int			pad_size;
+	int			pad_usr;
+	int			pad_grp;
 }				t_pad;
 
 void			sort_rev(int i, int ac, char ***av);

@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 22:30:11 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/18 13:45:43 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/18 14:57:02 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,14 @@ void		ls_file(const char *path, t_pad pad)
 	while (++i < pad.pad_links - pad_l)
 		putf(" ");
 	putf("%l ", (long) sb.st_nlink);
-	putf("%s ", getpwuid(sb.st_uid)->pw_name);
-	putf(" %s ", getgrgid(sb.st_gid)->gr_name);
+	putf("%s", getpwuid(sb.st_uid)->pw_name);
+	i = -1;
+	while (++i < pad.pad_usr - (int)ft_strlen(getpwuid(sb.st_uid)->pw_name))
+		putf(" ");
+	putf("  %s", getgrgid(sb.st_gid)->gr_name);
+	i = -1;
+	while (++i < pad.pad_grp - (int)ft_strlen(getgrgid(sb.st_gid)->gr_name))
+		putf(" ");
 	nb_s = (long long) sb.st_size;
 	pad_s = (nb_s > 0) ? 0 : 1;
 	while (nb_s > 0)
@@ -62,7 +68,10 @@ void		ls_file(const char *path, t_pad pad)
 	while (++i < pad.pad_size - pad_s)
 		putf(" ");
 	putf("%L ", (long long) sb.st_size);
-	date = ft_strsub(ctime(&sb.st_mtime), 4, 12);
+	if (time(0) - sb.st_mtime > 15552000)
+		date = ft_strjoin(ft_strsub(ctime(&sb.st_mtime), 4, 7), ft_strsub(ctime(&sb.st_mtime), 19, 5));
+	else
+		date = ft_strsub(ctime(&sb.st_mtime), 4, 12);
 	putf("%s ", date);
 	free(date);
 }
