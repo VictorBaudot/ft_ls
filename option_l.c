@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 22:30:11 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/18 14:57:02 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/18 15:20:01 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		ls_file(const char *path, t_pad pad)
 	while (++i < pad.pad_size - pad_s)
 		putf(" ");
 	putf("%L ", (long long) sb.st_size);
-	if (time(0) - sb.st_mtime > 15552000)
+	if (time(0) - sb.st_mtime > 15552000 || time(0) - sb.st_mtime < -60 * 60)
 		date = ft_strjoin(ft_strsub(ctime(&sb.st_mtime), 4, 7), ft_strsub(ctime(&sb.st_mtime), 19, 5));
 	else
 		date = ft_strsub(ctime(&sb.st_mtime), 4, 12);
