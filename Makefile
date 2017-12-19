@@ -6,7 +6,7 @@
 #    By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 08:32:05 by vbaudot           #+#    #+#              #
-#    Updated: 2017/12/18 12:29:37 by vbaudot          ###   ########.fr        #
+#    Updated: 2017/12/19 12:06:36 by vbaudot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,11 @@ SRC = main.c\
 		check_params.c\
 		option_l.c\
 		init_padding.c\
+		print_files.c\
+		option_r.c\
+		count.c\
+		error.c\
+		help_norm.c\
 
 OBJ = $(SRC:.c=.o)
 DEBUG =# -g3 -fsanitize=address

@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 15:37:18 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/18 14:07:43 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/19 12:07:13 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,26 @@ typedef struct	s_pad
 	int			pad_grp;
 }				t_pad;
 
+struct stat		help_norm(char *name, char *file);
+struct stat		e_lstat(char *name);
+DIR				*e_opendir(char *name);
+int				count_files(char *name);
+void			option_r(char *name, char **files, char *options, int ac_i);
+void			print_file(char *path, char *file, char *options, t_pad pad);
+void			print_files(char *name, char **files, char *options, t_pad pad);
 void			sort_rev(int i, int ac, char ***av);
 void			sort_time(int i, int ac, char ***av, char *name);
 void			init_padding(t_pad *pad, char *name, char *options);
 void			ls_file(const char *name, t_pad pad);
-void			count_blocks(char *options, DIR *dirp, char *name);
+void			count_blocks(char *options, char *name);
 void			rev_ascii(int i, int ac, char ***av);
 int				has(const char *options, const char option);
+int				is_symlink(const char *path);
+int				is_exec(const char *path);
 int				is_directory(const char *path);
 void			sort_files_by_type(int i, int ac, char ***av, char *options);
 void			sort_ascii(int i, int ac, char ***av);
-char			*options_init(int *i, int ac, char **av);
+char			*options_init(int *i, int ac, char **av, int k);
 void			ft_ls(char *options, char *name, int ac_i);
 void			print_usage(void);
 void			ft_error(void);

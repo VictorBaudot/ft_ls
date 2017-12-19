@@ -1,19 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_usage.c                                      :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/30 14:04:58 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/19 11:31:15 by vbaudot          ###   ########.fr       */
+/*   Created: 2017/12/19 11:21:50 by vbaudot           #+#    #+#             */
+/*   Updated: 2017/12/19 11:43:14 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	print_usage(void)
+void		ft_error(void)
 {
-	ft_putstr("usage: ./ft_ls [-lRGart]\n");
+	ft_putstr("error.\n");
 	exit(EXIT_FAILURE);
+}
+
+DIR			*e_opendir(char *name)
+{
+	DIR *dirp;
+
+	if ((dirp = opendir(name)) == NULL)
+	{
+		perror("opendir");
+		ft_error();
+	}
+	return (dirp);
+}
+
+struct stat	e_lstat(char *name)
+{
+	struct stat	sb;
+
+	if (lstat(name, &sb) == -1)
+	{
+		putf("%s: ", name);
+		perror("");
+		exit(EXIT_SUCCESS);
+	}
+	return (sb);
 }

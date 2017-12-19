@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_usage.c                                      :+:      :+:    :+:   */
+/*   help_norm.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/30 14:04:58 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/19 11:31:15 by vbaudot          ###   ########.fr       */
+/*   Created: 2017/12/19 11:59:51 by vbaudot           #+#    #+#             */
+/*   Updated: 2017/12/19 12:07:09 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	print_usage(void)
+struct stat	help_norm(char *name, char *file)
 {
-	ft_putstr("usage: ./ft_ls [-lRGart]\n");
-	exit(EXIT_FAILURE);
+	char		*path;
+	struct stat	sb;
+
+	path = ft_str3join(name, "/", file);
+	sb = e_lstat(path);
+	free(path);
+	return (sb);
 }
