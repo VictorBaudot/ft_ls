@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 15:37:18 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/19 15:16:00 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/19 16:56:11 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ typedef struct	s_pad
 void			init_padding_files(t_pad *pad, char **av, char *options);
 void			check_all_pads(char *path, t_pad **pad);
 struct stat		help_norm(char *name, char *file);
-struct stat		e_lstat(char *name);
-DIR				*e_opendir(char *name);
+struct stat		e_lstat(const char *name);
+DIR				*e_opendir(const char *name);
 int				count_files(char *name);
 void			option_r(char *name, char **files, char *options, int ac_i);
 void			print_file(char *path, char *file, char *options, t_pad pad);
@@ -78,7 +78,6 @@ void			sort_files_by_type(int i, int ac, char ***av, char *options);
 void			sort_ascii(int i, int ac, char ***av);
 char			*options_init(int *i, int ac, char **av, int k);
 void			ft_ls(char *options, char *name, int ac_i);
-void			print_usage(void);
-void			ft_error(void);
+void			print_usage(char c);
 
 #endif

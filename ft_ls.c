@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 16:17:00 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/19 14:45:45 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/19 16:33:47 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void		ft_ls(char *options, char *name, int ac_i)
 		print_file(name, name, options, pad);
 		return ;
 	}
-	(has(options, 'l')) ? init_padding(&pad, name, options) : 0;
 	((has(options, 'R') && has(name, '/')) || ac_i > 1) ?
 	putf("\n%s:\n", name) : 0;
+	(has(options, 'l')) ? init_padding(&pad, name, options) : 0;
 	(has(options, 'l')) ? count_blocks(options, name) : 0;
 	cut_ft_ls(options, name, ac_i, pad);
 }

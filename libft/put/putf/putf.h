@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/16 02:24:54 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/17 12:23:49 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/19 16:58:57 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void			ft_xx(va_list ap);
 void			ft_cc(va_list ap);
 
 void			ft_error(void);
-void			print_usage(void);
 char			*ft_convert_base(unsigned long long jack, int base, int cas);
 void			ft_init_tab(t_ft **tab);
 int				ft_check(int i, char fmt, va_list ap, t_ft	*tab);
