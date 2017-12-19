@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 16:41:32 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/19 11:48:27 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/19 15:16:15 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,15 @@ int	is_symlink(const char *path)
 	if (lstat(path, &sb) != 0)
 		return (0);
 	return (((sb.st_mode & S_IFMT) == S_IFLNK) ? 1 : 0);
+}
+
+int	is_socket(const char *path)
+{
+	struct stat	sb;
+
+	if (lstat(path, &sb) != 0)
+		return (0);
+	return (((sb.st_mode & S_IFMT) == S_IFSOCK) ? 1 : 0);
 }
 
 int	has(const char *options, const char option)

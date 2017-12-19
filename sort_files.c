@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 16:36:59 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/19 12:06:59 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/19 14:02:31 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	sort_time(int i, int ac, char ***av, char *name)
 	while (++j < ac - i - 1)
 	{
 		k = -1;
-		while (++k < ac - i)
+		while (++k < ac - i - 1)
 		{
 			sb1 = help_norm(name, (*av)[i + k]);
 			sb2 = help_norm(name, (*av)[i + k + 1]);
@@ -44,10 +44,10 @@ void	sort_rev(int i, int ac, char ***av)
 	char	*tmp;
 
 	k = -1;
-	while (++k < (ac - i) / 2)
+	while (++k <= (ac - i - 1) / 2)
 	{
-		tmp = (*av)[ac - i - k];
-		(*av)[ac - i - k] = (*av)[i + k];
+		tmp = (*av)[ac - 1 - k];
+		(*av)[ac - 1 - k] = (*av)[i + k];
 		(*av)[i + k] = tmp;
 	}
 }
@@ -62,7 +62,7 @@ void	rev_ascii(int i, int ac, char ***av)
 	while (++j < ac - i - 1)
 	{
 		k = -1;
-		while (++k < ac - i)
+		while (++k < ac - i - 1)
 		{
 			if (ft_strcmp((*av)[i + k], (*av)[i + k + 1]) < 0)
 			{
@@ -84,7 +84,7 @@ void	sort_ascii(int i, int ac, char ***av)
 	while (++j < ac - i - 1)
 	{
 		k = -1;
-		while (++k < ac - i)
+		while (++k < ac - i - 1)
 		{
 			if (ft_strcmp((*av)[i + k], (*av)[i + k + 1]) > 0)
 			{
@@ -107,7 +107,7 @@ void	sort_files_by_type(int i, int ac, char ***av, char *options)
 	while (++j < ac - i - 1)
 	{
 		k = -1;
-		while (++k < ac - i)
+		while (++k < ac - i - 1)
 		{
 			if (is_directory((*av)[i + k]) && !is_directory((*av)[i + k + 1]))
 			{

@@ -6,7 +6,7 @@
 #    By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 08:32:05 by vbaudot           #+#    #+#              #
-#    Updated: 2017/12/19 12:06:36 by vbaudot          ###   ########.fr        #
+#    Updated: 2017/12/19 15:00:24 by vbaudot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,10 @@ SRC = main.c\
 		count.c\
 		error.c\
 		help_norm.c\
+		check_padding.c\
 
 OBJ = $(SRC:.c=.o)
-DEBUG =# -g3 -fsanitize=address
+DEBUG = #-g3 -fsanitize=address
 
 CFLAGS = -Wall -Werror -Wextra
 LIBFT = -L./libft -lft

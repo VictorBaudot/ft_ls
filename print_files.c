@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 09:32:15 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/19 11:44:47 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/19 15:17:01 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ void		print_file(char *path, char *file, char *options, t_pad pad)
 	has(options, 'l') ? ls_file(path, pad) : 0;
 	if (is_directory(path) && has(options, 'G'))
 		putf(B_CY "%s" NC "\n", file);
-	else if (is_symlink(path) && has(options, 'G'))
+	else if (is_symlink(path) && has(options, 'G') && has(options, 'l'))
 		print_symlink(path, file, options);
+	else if (is_socket(path) && has(options, 'G'))
+		putf(B_G "%s" NC "\n", file);
 	else if (is_exec(path) && has(options, 'G'))
 		putf(B_R "%s" NC "\n", file);
 	else

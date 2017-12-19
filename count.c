@@ -6,22 +6,17 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 10:49:57 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/19 11:50:44 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/19 13:56:17 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static long	nb_blocks(const char *name)
+static long	nb_blocks(char *name)
 {
 	struct stat	sb;
 
-	if (lstat(name, &sb) == -1)
-	{
-		putf("nb_blocks: %s: ", name);
-		perror("");
-		exit(EXIT_SUCCESS);
-	}
+	sb = e_lstat(name);
 	return ((long)sb.st_blocks);
 }
 

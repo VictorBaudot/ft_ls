@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 22:30:11 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/19 11:33:51 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/19 14:33:25 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	print_middle(struct stat sb, t_pad pad, int i)
 	pad_l = nb_length(nb_l);
 	while (++i < pad.pad_links - pad_l)
 		putf(" ");
-	putf("%l ", (long)sb.st_nlink);
+	putf("  %l ", (long)sb.st_nlink);
 	putf("%s", getpwuid(sb.st_uid)->pw_name);
 	i = -1;
 	while (++i < pad.pad_usr - (int)ft_strlen(getpwuid(sb.st_uid)->pw_name))
@@ -68,20 +68,15 @@ static void	print_middle(struct stat sb, t_pad pad, int i)
 	i = -1;
 	while (++i < pad.pad_size - pad_s)
 		putf(" ");
-	putf("%L ", (long long)sb.st_size);
+	putf("  %L ", (long long)sb.st_size);
 }
 
-void		ls_file(const char *path, t_pad pad)
+void		ls_file(char *path, t_pad pad)
 {
 	struct stat	sb;
 	char		*date;
 
-	if (lstat(path, &sb) == -1)
-	{
-		putf("ls_file: %s: ", path);
-		perror("");
-		exit(EXIT_SUCCESS);
-	}
+	sb = e_lstat(path);
 	print_mode(sb);
 	print_middle(sb, pad, -1);
 	if (time(0) - sb.st_mtime > 15552000 || time(0) - sb.st_mtime < -60 * 60)

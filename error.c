@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 11:21:50 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/19 11:43:14 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/19 13:29:17 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ DIR			*e_opendir(char *name)
 
 	if ((dirp = opendir(name)) == NULL)
 	{
+		putf("%s: ", name);
 		perror("opendir");
 		ft_error();
 	}
@@ -37,7 +38,7 @@ struct stat	e_lstat(char *name)
 	if (lstat(name, &sb) == -1)
 	{
 		putf("%s: ", name);
-		perror("");
+		perror("lstat");
 		exit(EXIT_SUCCESS);
 	}
 	return (sb);
