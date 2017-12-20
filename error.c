@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 11:21:50 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/19 16:33:35 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/19 17:23:17 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 DIR			*e_opendir(const char *name)
 {
 	DIR *dirp;
+	char *join;
 
 	if ((dirp = opendir(name)) == NULL)
 	{
-		putf("ls: ");
-		perror(name);
+		join = ft_strjoin("ls: ", name);
+		perror(join);
+		free(join);
 		exit(EXIT_SUCCESS);
 	}
 	return (dirp);
@@ -28,11 +30,13 @@ DIR			*e_opendir(const char *name)
 struct stat	e_lstat(const char *name)
 {
 	struct stat	sb;
+	char *join;
 
 	if (lstat(name, &sb) == -1)
 	{
-		putf("ls: ");
-		perror(name);
+		join = ft_strjoin("ls: ", name);
+		perror(join);
+		free(join);
 		exit(EXIT_SUCCESS);
 	}
 	return (sb);
