@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 22:30:11 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/20 14:56:03 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/20 15:30:51 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,20 @@
 static void	print_mode(struct stat sb)
 {
 	mode_t m;
+	static const char *rwx[] = {"---", "--x", "-w-", "-wx",
+    "r--", "r-x", "rw-", "rwx"};
+    static char bits[10];
 
+    ft_strcpy(&bits[0], rwx[(sb.st_mode >> 6)& 7]);
+    ft_strcpy(&bits[3], rwx[(sb.st_mode >> 3)& 7]);
+    ft_strcpy(&bits[6], rwx[(sb.st_mode & 7)]);
+    if (sb.st_mode & S_ISUID)
+        bits[2] = (sb.st_mode & S_IXUSR) ? 's' : 'S';
+    if (sb.st_mode & S_ISGID)
+        bits[5] = (sb.st_mode & S_IXGRP) ? 's' : 'l';
+    if (sb.st_mode & S_ISVTX)
+        bits[8] = (sb.st_mode & S_IXOTH) ? 't' : 'T';
+    bits[9] = '\0';
 	m = sb.st_mode & S_IFMT;
 	(m == S_IFREG) ? putf("-") : 0;
 	(m == S_IFDIR) ? putf("d") : 0;
@@ -24,19 +37,10 @@ static void	print_mode(struct stat sb)
 	(m == S_IFIFO) ? putf("p") : 0;
 	(m == S_IFCHR) ? putf("c") : 0;
 	(m == S_IFBLK) ? putf("b") : 0;
-	(m == S_IFWHT) ? putf("w") : 0;
 	if (m != S_IFREG && m != S_IFDIR && m != S_IFLNK && m != S_IFSOCK
-	&& m != S_IFIFO && m != S_IFCHR && m != S_IFBLK && m != S_IFWHT)
+	&& m != S_IFIFO && m != S_IFCHR && m != S_IFBLK)
 		putf("?");
-	putf((sb.st_mode & S_IRUSR) ? "r" : "-");
-	putf((sb.st_mode & S_IWUSR) ? "w" : "-");
-	putf((sb.st_mode & S_IXUSR) ? "x" : "-");
-	putf((sb.st_mode & S_IRGRP) ? "r" : "-");
-	putf((sb.st_mode & S_IWGRP) ? "w" : "-");
-	putf((sb.st_mode & S_IXGRP) ? "x" : "-");
-	putf((sb.st_mode & S_IROTH) ? "r" : "-");
-	putf((sb.st_mode & S_IWOTH) ? "w" : "-");
-	putf((sb.st_mode & S_IXOTH) ? "x" : "-");
+	putf("%s", bits);
 }
 
 static int	nb_length(long nb)

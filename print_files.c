@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 09:32:15 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/20 14:39:37 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/20 15:39:43 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,10 @@ static void	print_symlink(char *path, char *file, char *options)
 {
 	int			count;
 	char		*link;
-	struct stat	sb;
 
-	sb = e_lstat(path);
-	if(!(link = malloc(sb.st_size + 1)))
+	if(!(link = malloc(1024)))
 		ft_error();
-	count = readlink(path, link, sb.st_size + 1);
+	count = readlink(path, link, 1023);
 	if (count >= 0)
 	{
 		link[count] = '\0';
