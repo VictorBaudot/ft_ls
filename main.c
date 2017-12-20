@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 09:43:26 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/20 14:39:07 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/20 15:53:51 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	sort_and_call_ls(char **files, char *options, int ac)
 {
 	t_pad	pad;
 	int i;
+	int j;
 
 	(has(options, 't')) ? sort_time(ac, &files, ".") : 0;
 	(has(options, 'r')) ? sort_rev(ac, &files) : 0;
@@ -24,9 +25,10 @@ void	sort_and_call_ls(char **files, char *options, int ac)
 	i = -1;
 	while (files[++i] && !is_directory(files[i]))
 		print_file(files[i], files[i], options, pad);
+	j = (i > 0) ? 1 : 0;
 	while (files[i])
 	{
-		ft_ls(options, files[i], ac);
+		ft_ls(options, files[i], ac, j);
 		i++;
 	}
 }
@@ -42,9 +44,8 @@ int		main(int ac, char **av)
 	if (i > 1 && i != ac)
 		if (ft_strcmp(av[i], "--") == 0)
 			i++;
-//	putf("Options: %s\n", options);
 	if (i == ac)
-		ft_ls(options, ".", 1);
+		ft_ls(options, ".", 1, 0);
 	else
 	{
 		(!has(options, 'f')) ? sort_ascii(i, ac, &av) : 0;

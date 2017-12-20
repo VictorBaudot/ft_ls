@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 15:37:18 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/20 14:40:03 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/20 15:52:28 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int				is_directory(const char *path);
 void			sort_files_by_type(int ac, char ***av);
 void			sort_ascii(int i, int ac, char ***av);
 char			*options_init(int *i, int ac, char **av, int k);
-void			ft_ls(char *options, char *name, int ac);
+void			ft_ls(char *options, char *name, int ac, int j);
 void			print_usage(char c);
 
 #endif

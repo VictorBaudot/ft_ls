@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 16:17:00 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/20 14:38:54 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/20 15:52:16 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ static void	cut_ft_ls(char *options, char *name, int ac, t_pad pad)
 	free(files);
 }
 
-void		ft_ls(char *options, char *name, int ac)
+void		ft_ls(char *options, char *name, int ac, int j)
 {
 	t_pad	pad;
+	static int	i = 0;
 
 	pad.pad_links = 1;
 	pad.pad_size = 1;
@@ -53,8 +54,11 @@ void		ft_ls(char *options, char *name, int ac)
 		print_file(name, name, options, pad);
 		return ;
 	}
-	((has(options, 'R') && has(name, '/')) || ac > 1) ?
-	putf("\n%s:\n", name) : 0;
+	((has(options, 'R') && has(name, '/')) || (ac > 1 && (i > 0 || j == 1))) ?
+	putf("\n") : 0;
+	((has(options, 'R') && has(name, '/')) || (ac > 1)) ?
+	putf("%s:\n", name) : 0;
+	i++;
 	(has(options, 'l') || has(options, 'g')) ? init_padding(&pad, name, options) : 0;
 	(has(options, 'l') || has(options, 'g')) ? count_blocks(options, name) : 0;
 	cut_ft_ls(options, name, ac, pad);
