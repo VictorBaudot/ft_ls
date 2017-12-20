@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 22:30:11 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/20 15:30:51 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/20 16:16:41 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,23 @@
 
 static void	print_mode(struct stat sb)
 {
-	mode_t m;
-	static const char *rwx[] = {"---", "--x", "-w-", "-wx",
-    "r--", "r-x", "rw-", "rwx"};
-    static char bits[10];
+	mode_t				m;
+	static const char	*rwx[] = {"---", "--x", "-w-", "-wx",
+	"r--", "r-x", "rw-", "rwx"};
+	static char			bits[10];
 
-    ft_strcpy(&bits[0], rwx[(sb.st_mode >> 6)& 7]);
-    ft_strcpy(&bits[3], rwx[(sb.st_mode >> 3)& 7]);
-    ft_strcpy(&bits[6], rwx[(sb.st_mode & 7)]);
-    if (sb.st_mode & S_ISUID)
-        bits[2] = (sb.st_mode & S_IXUSR) ? 's' : 'S';
-    if (sb.st_mode & S_ISGID)
-        bits[5] = (sb.st_mode & S_IXGRP) ? 's' : 'l';
-    if (sb.st_mode & S_ISVTX)
-        bits[8] = (sb.st_mode & S_IXOTH) ? 't' : 'T';
-    bits[9] = '\0';
+	ft_strcpy(&bits[0], rwx[(sb.st_mode >> 6) & 7]);
+	ft_strcpy(&bits[3], rwx[(sb.st_mode >> 3) & 7]);
+	ft_strcpy(&bits[6], rwx[(sb.st_mode & 7)]);
+	if (sb.st_mode & S_ISUID)
+		bits[2] = (sb.st_mode & S_IXUSR) ? 's' : 'S';
+	if (sb.st_mode & S_ISGID)
+		bits[5] = (sb.st_mode & S_IXGRP) ? 's' : 'l';
+	if (sb.st_mode & S_ISVTX)
+		bits[8] = (sb.st_mode & S_IXOTH) ? 't' : 'T';
+	bits[9] = '\0';
 	m = sb.st_mode & S_IFMT;
-	(m == S_IFREG) ? putf("-") : 0;
-	(m == S_IFDIR) ? putf("d") : 0;
-	(m == S_IFLNK) ? putf("l") : 0;
-	(m == S_IFSOCK) ? putf("s") : 0;
-	(m == S_IFIFO) ? putf("p") : 0;
-	(m == S_IFCHR) ? putf("c") : 0;
-	(m == S_IFBLK) ? putf("b") : 0;
+	put_file_type(m);
 	if (m != S_IFREG && m != S_IFDIR && m != S_IFLNK && m != S_IFSOCK
 	&& m != S_IFIFO && m != S_IFCHR && m != S_IFBLK)
 		putf("?");
@@ -88,15 +82,15 @@ static void	print_size(struct stat sb, t_pad pad, int i)
 	nb_s = (long long)sb.st_size;
 	if ((sb.st_mode & S_IFMT) == S_IFCHR || (sb.st_mode & S_IFMT) == S_IFBLK)
 	{
-		pad_s = nb_length((long) major(sb.st_rdev));
+		pad_s = nb_length((long)major(sb.st_rdev));
 		while (++i < 4 - pad_s)
 			putf(" ");
-		putf(" %l,", (long) major(sb.st_rdev));
-		pad_s = nb_length((long) minor(sb.st_rdev));
+		putf(" %l,", (long)major(sb.st_rdev));
+		pad_s = nb_length((long)minor(sb.st_rdev));
 		i = -1;
 		while (++i < 3 - pad_s)
 			putf(" ");
-		putf(" %l ", (long) minor(sb.st_rdev));
+		putf(" %l ", (long)minor(sb.st_rdev));
 	}
 	else
 	{

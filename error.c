@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 11:21:50 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/20 10:13:14 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/20 16:18:59 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void		ft_error(void)
 
 DIR			*e_opendir(const char *name)
 {
-	DIR *dirp;
-	char *join;
+	DIR		*dirp;
+	char	*join;
 
 	if ((dirp = opendir(name)) == NULL)
 	{
@@ -36,7 +36,7 @@ DIR			*e_opendir(const char *name)
 struct stat	e_lstat(const char *name)
 {
 	struct stat	sb;
-	char *join;
+	char		*join;
 
 	if (lstat(name, &sb) == -1)
 	{

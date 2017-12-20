@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 15:37:18 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/20 15:52:28 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/20 16:16:50 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct	s_pad
 	int			pad_grp;
 }				t_pad;
 
+void			put_file_type(mode_t m);
 char			**ok_files(int i, int ac, char **av);
 void			ft_error(void);
 void			init_padding_files(t_pad *pad, char **av, char *options);

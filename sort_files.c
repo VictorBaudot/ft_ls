@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 16:36:59 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/20 13:40:48 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/20 16:13:28 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	sort_time(int ac, char ***av, char *name)
 {
-	int		j;
-	int		k;
-	char	*tmp;
+	int			j;
+	int			k;
+	char		*tmp;
 	struct stat	sb1;
 	struct stat	sb2;
 
@@ -26,8 +26,10 @@ void	sort_time(int ac, char ***av, char *name)
 		k = -1;
 		while (++k < ac - 1)
 		{
-			sb1 = ((*av)[k][0] == '/') ? help_norm("", (*av)[k]) : help_norm(name, (*av)[k]);
-			sb2 = ((*av)[k + 1][0] == '/') ? help_norm("", (*av)[k + 1]) : help_norm(name, (*av)[k + 1]);
+			sb1 = ((*av)[k][0] == '/') ? help_norm("", (*av)[k]) :
+			help_norm(name, (*av)[k]);
+			sb2 = ((*av)[k + 1][0] == '/') ? help_norm("", (*av)[k + 1]) :
+			help_norm(name, (*av)[k + 1]);
 			if (sb2.st_mtime > sb1.st_mtime)
 			{
 				tmp = (*av)[k + 1];
