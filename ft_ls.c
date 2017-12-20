@@ -6,13 +6,13 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 16:17:00 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/19 16:33:47 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/20 11:24:32 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	cut_ft_ls(char *options, char *name, int ac_i, t_pad pad)
+static void	cut_ft_ls(char *options, char *name, int ac, t_pad pad)
 {
 	DIR				*dirp;
 	char			**files;
@@ -29,10 +29,10 @@ static void	cut_ft_ls(char *options, char *name, int ac_i, t_pad pad)
 	while ((dp = readdir(dirp)) != NULL)
 		files[++i] = ft_strdup(dp->d_name);
 	sort_ascii(0, nb_f, &files);
-	(has(options, 't')) ? sort_time(0, nb_f, &files, name) : 0;
-	(has(options, 'r')) ? sort_rev(0, nb_f, &files) : 0;
+	(has(options, 't')) ? sort_time(nb_f, &files, name) : 0;
+	(has(options, 'r')) ? sort_rev(nb_f, &files) : 0;
 	print_files(name, files, options, pad);
-	(has(options, 'R')) ? option_r(name, files, options, ac_i) : 0;
+	(has(options, 'R')) ? option_r(name, files, options, ac) : 0;
 	(void)closedir(dirp);
 	i = -1;
 	while (files[++i])
@@ -40,7 +40,7 @@ static void	cut_ft_ls(char *options, char *name, int ac_i, t_pad pad)
 	free(files);
 }
 
-void		ft_ls(char *options, char *name, int ac_i)
+void		ft_ls(char *options, char *name, int ac)
 {
 	t_pad	pad;
 
@@ -53,9 +53,9 @@ void		ft_ls(char *options, char *name, int ac_i)
 		print_file(name, name, options, pad);
 		return ;
 	}
-	((has(options, 'R') && has(name, '/')) || ac_i > 1) ?
+	((has(options, 'R') && has(name, '/')) || ac > 1) ?
 	putf("\n%s:\n", name) : 0;
 	(has(options, 'l')) ? init_padding(&pad, name, options) : 0;
 	(has(options, 'l')) ? count_blocks(options, name) : 0;
-	cut_ft_ls(options, name, ac_i, pad);
+	cut_ft_ls(options, name, ac, pad);
 }

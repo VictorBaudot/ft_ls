@@ -6,11 +6,17 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 11:21:50 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/19 17:23:17 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/20 10:13:14 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+void		ft_error(void)
+{
+	putf("Malloc error.");
+	exit(EXIT_SUCCESS);
+}
 
 DIR			*e_opendir(const char *name)
 {

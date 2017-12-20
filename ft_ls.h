@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 15:37:18 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/19 16:56:11 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/20 11:24:19 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ typedef struct	s_pad
 	int			pad_grp;
 }				t_pad;
 
+char			**ok_files(int i, int ac, char **av);
+void			ft_error(void);
 void			init_padding_files(t_pad *pad, char **av, char *options);
 void			check_all_pads(char *path, t_pad **pad);
 struct stat		help_norm(char *name, char *file);
@@ -63,21 +65,21 @@ int				count_files(char *name);
 void			option_r(char *name, char **files, char *options, int ac_i);
 void			print_file(char *path, char *file, char *options, t_pad pad);
 void			print_files(char *name, char **files, char *options, t_pad pad);
-void			sort_rev(int i, int ac, char ***av);
-void			sort_time(int i, int ac, char ***av, char *name);
+void			sort_rev(int ac, char ***av);
+void			sort_time(int ac, char ***av, char *name);
 void			init_padding(t_pad *pad, char *name, char *options);
 void			ls_file(char *name, t_pad pad);
 void			count_blocks(char *options, char *name);
-void			rev_ascii(int i, int ac, char ***av);
+void			rev_ascii(int ac, char ***av);
 int				has(const char *options, const char option);
 int				is_socket(const char *path);
 int				is_symlink(const char *path);
 int				is_exec(const char *path);
 int				is_directory(const char *path);
-void			sort_files_by_type(int i, int ac, char ***av, char *options);
+void			sort_files_by_type(int ac, char ***av);
 void			sort_ascii(int i, int ac, char ***av);
 char			*options_init(int *i, int ac, char **av, int k);
-void			ft_ls(char *options, char *name, int ac_i);
+void			ft_ls(char *options, char *name, int ac);
 void			print_usage(char c);
 
 #endif
