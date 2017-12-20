@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 09:43:26 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/20 15:53:51 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/20 16:00:20 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ void	sort_and_call_ls(char **files, char *options, int ac)
 
 	(has(options, 't')) ? sort_time(ac, &files, ".") : 0;
 	(has(options, 'r')) ? sort_rev(ac, &files) : 0;
-	sort_files_by_type(ac, &files);
+	sort_files_by_type(ac, &files);/*
+	i = -1;
+	while (files[++i])
+		putf("%s\n", files[i]);*/
 	(has(options, 'l') || has(options, 'g')) ? init_padding_files(&pad, files, options) : 0;
 	i = -1;
 	while (files[++i] && !is_directory(files[i]))

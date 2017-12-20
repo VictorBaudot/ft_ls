@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 16:17:00 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/20 15:52:16 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/20 16:08:58 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static void	cut_ft_ls(char *options, char *name, int ac, t_pad pad)
 void		ft_ls(char *options, char *name, int ac, int j)
 {
 	t_pad	pad;
+	DIR				*dirp;
+	char *join;
 	static int	i = 0;
 
 	pad.pad_links = 1;
@@ -59,6 +61,14 @@ void		ft_ls(char *options, char *name, int ac, int j)
 	((has(options, 'R') && has(name, '/')) || (ac > 1)) ?
 	putf("%s:\n", name) : 0;
 	i++;
+	if ((dirp = opendir(name)) == NULL)
+	{
+		join = ft_strjoin("ls: ", name);
+		perror(join);
+		free(join);
+		return ;
+	}
+	(void)closedir(dirp);
 	(has(options, 'l') || has(options, 'g')) ? init_padding(&pad, name, options) : 0;
 	(has(options, 'l') || has(options, 'g')) ? count_blocks(options, name) : 0;
 	cut_ft_ls(options, name, ac, pad);
