@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 10:49:57 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/19 16:41:46 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/20 12:29:56 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		count_blocks(char *options, char *name)
 			nb += nb_blocks(path);
 		free(path);
 	}
-	(flag > 2) ? putf("total %l\n", nb) : 0;
+	(flag > 2 || has(options, 'a')) ? putf("total %l\n", nb) : 0;
 	(void)closedir(dirp);
 }
 

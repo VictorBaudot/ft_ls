@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 15:37:18 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/20 11:24:19 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/20 12:55:41 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ void			ls_file(char *name, t_pad pad);
 void			count_blocks(char *options, char *name);
 void			rev_ascii(int ac, char ***av);
 int				has(const char *options, const char option);
+int				is_chr(const char *path);
+int				is_fifo(const char *path);
+int				is_blk(const char *path);
 int				is_socket(const char *path);
 int				is_symlink(const char *path);
 int				is_exec(const char *path);

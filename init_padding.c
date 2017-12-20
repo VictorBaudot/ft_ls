@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 22:58:41 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/19 16:34:50 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/20 13:18:16 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,11 @@ void	init_padding(t_pad *pad, char *name, char *options)
 		if (dp->d_name[0] == '.' && has(options, 'a'))
 			check_all_pads(path, &pad);
 		else if (dp->d_name[0] != '.')
+		{
+			if (is_chr(path))
+				pad->pad_size = 8;
 			check_all_pads(path, &pad);
+		}
 		free(path);
 	}
 	(void)closedir(dirp);
