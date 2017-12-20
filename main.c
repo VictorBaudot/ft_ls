@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 09:43:26 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/20 11:36:00 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/20 14:39:07 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,9 @@ void	sort_and_call_ls(char **files, char *options, int ac)
 	int i;
 
 	(has(options, 't')) ? sort_time(ac, &files, ".") : 0;
-	(has(options, 'r')) ? sort_rev(ac, &files) : 0;/*
-	i = -1;
-	while (files[++i])
-		putf("%s\n", files[i]);*/
+	(has(options, 'r')) ? sort_rev(ac, &files) : 0;
 	sort_files_by_type(ac, &files);
-	(has(options, 'l')) ? init_padding_files(&pad, files, options) : 0;
+	(has(options, 'l') || has(options, 'g')) ? init_padding_files(&pad, files, options) : 0;
 	i = -1;
 	while (files[++i] && !is_directory(files[i]))
 		print_file(files[i], files[i], options, pad);
@@ -50,7 +47,7 @@ int		main(int ac, char **av)
 		ft_ls(options, ".", 1);
 	else
 	{
-		sort_ascii(i, ac, &av);
+		(!has(options, 'f')) ? sort_ascii(i, ac, &av) : 0;
 		files = ok_files(i, ac, av);
 		ac = 0;
 		while (files[ac])

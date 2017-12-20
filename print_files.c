@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 09:32:15 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/20 12:55:31 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/20 14:39:37 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,8 @@ static void	print_symlink(char *path, char *file, char *options)
 	struct stat	sb;
 
 	sb = e_lstat(path);
-	link = malloc(sb.st_size + 1);
-	if (link == NULL)
-	{
-		fprintf(stderr, "mémoire insuffisante\n");
-		exit(EXIT_FAILURE);
-	}
+	if(!(link = malloc(sb.st_size + 1)))
+		ft_error();
 	count = readlink(path, link, sb.st_size + 1);
 	if (count >= 0)
 	{
@@ -39,17 +35,17 @@ static void	print_symlink(char *path, char *file, char *options)
 
 void		print_file(char *path, char *file, char *options, t_pad pad)
 {
-	has(options, 'l') ? ls_file(path, pad) : 0;
+	(has(options, 'l') || has(options, 'g')) ? ls_file(path, pad, options) : 0;
 	if (is_directory(path) && has(options, 'G'))
 		putf(B_CY "%s" NC "\n", file);
-	else if (is_symlink(path) && has(options, 'l'))
+	else if (is_symlink(path) && (has(options, 'l') || has(options, 'g')))
 		print_symlink(path, file, options);
 	else if (is_symlink(path) && has(options, 'G'))
 		putf(B_MA "%s" NC "\n", file);
 	else if (is_socket(path) && has(options, 'G'))
 		putf(B_G "%s" NC "\n", file);
 	else if (is_fifo(path) && has(options, 'G'))
-		putf(BLU "%s" NC "\n", file);
+		putf(YEL "%s" NC "\n", file);
 	else if (is_chr(path) && has(options, 'G'))
 		putf(B_Y "%s" NC "\n", file);
 	else if (is_blk(path) && has(options, 'G'))

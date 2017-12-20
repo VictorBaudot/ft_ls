@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 16:17:00 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/20 11:24:32 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/20 14:38:54 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	cut_ft_ls(char *options, char *name, int ac, t_pad pad)
 	i = -1;
 	while ((dp = readdir(dirp)) != NULL)
 		files[++i] = ft_strdup(dp->d_name);
-	sort_ascii(0, nb_f, &files);
+	(!has(options, 'f')) ? sort_ascii(0, nb_f, &files) : 0;
 	(has(options, 't')) ? sort_time(nb_f, &files, name) : 0;
 	(has(options, 'r')) ? sort_rev(nb_f, &files) : 0;
 	print_files(name, files, options, pad);
@@ -55,7 +55,7 @@ void		ft_ls(char *options, char *name, int ac)
 	}
 	((has(options, 'R') && has(name, '/')) || ac > 1) ?
 	putf("\n%s:\n", name) : 0;
-	(has(options, 'l')) ? init_padding(&pad, name, options) : 0;
-	(has(options, 'l')) ? count_blocks(options, name) : 0;
+	(has(options, 'l') || has(options, 'g')) ? init_padding(&pad, name, options) : 0;
+	(has(options, 'l') || has(options, 'g')) ? count_blocks(options, name) : 0;
 	cut_ft_ls(options, name, ac, pad);
 }

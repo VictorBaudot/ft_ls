@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 15:37:18 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/20 12:55:41 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/20 14:40:03 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void			print_files(char *name, char **files, char *options, t_pad pad);
 void			sort_rev(int ac, char ***av);
 void			sort_time(int ac, char ***av, char *name);
 void			init_padding(t_pad *pad, char *name, char *options);
-void			ls_file(char *name, t_pad pad);
+void			ls_file(char *name, t_pad pad, char *options);
 void			count_blocks(char *options, char *name);
 void			rev_ascii(int ac, char ***av);
 int				has(const char *options, const char option);

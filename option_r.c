@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 09:49:25 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/20 12:39:22 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/20 15:00:10 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@ void	option_r(char *name, char **files, char *options, int ac_i)
 		if (is_directory(path))
 		{
 			if ((sub = opendir(path)) == NULL)
-				{
-					ft_putchar('\n');
-					join = ft_str3join(path, ":\nls: ", files[i]);
-					perror(join);
-					free(join);
-					continue ;
-				}
+			{
+				ft_putchar('\n');
+				join = ft_str3join(path, ":\nls: ", files[i]);
+				perror(join);
+				free(join);
+				free(path);
+				continue ;
+			}
 			else
 			{
 				if (ft_strcmp(files[i], ".") != 0 && ft_strcmp(files[i], "..") != 0)

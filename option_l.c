@@ -6,7 +6,7 @@
 /*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 22:30:11 by vbaudot           #+#    #+#             */
-/*   Updated: 2017/12/20 13:09:01 by vbaudot          ###   ########.fr       */
+/*   Updated: 2017/12/20 14:56:03 by vbaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,20 @@
 
 static void	print_mode(struct stat sb)
 {
-	((sb.st_mode & S_IFMT) == S_IFREG) ? putf("-") : 0;
-	((sb.st_mode & S_IFMT) == S_IFDIR) ? putf("d") : 0;
-	((sb.st_mode & S_IFMT) == S_IFLNK) ? putf("l") : 0;
-	((sb.st_mode & S_IFMT) == S_IFSOCK) ? putf("s") : 0;
-	((sb.st_mode & S_IFMT) == S_IFIFO) ? putf("p") : 0;
-	((sb.st_mode & S_IFMT) == S_IFCHR) ? putf("c") : 0;
-	((sb.st_mode & S_IFMT) == S_IFBLK) ? putf("b") : 0;
-	((sb.st_mode & S_IFMT) == S_IFWHT) ? putf("w") : 0;
+	mode_t m;
+
+	m = sb.st_mode & S_IFMT;
+	(m == S_IFREG) ? putf("-") : 0;
+	(m == S_IFDIR) ? putf("d") : 0;
+	(m == S_IFLNK) ? putf("l") : 0;
+	(m == S_IFSOCK) ? putf("s") : 0;
+	(m == S_IFIFO) ? putf("p") : 0;
+	(m == S_IFCHR) ? putf("c") : 0;
+	(m == S_IFBLK) ? putf("b") : 0;
+	(m == S_IFWHT) ? putf("w") : 0;
+	if (m != S_IFREG && m != S_IFDIR && m != S_IFLNK && m != S_IFSOCK
+	&& m != S_IFIFO && m != S_IFCHR && m != S_IFBLK && m != S_IFWHT)
+		putf("?");
 	putf((sb.st_mode & S_IRUSR) ? "r" : "-");
 	putf((sb.st_mode & S_IWUSR) ? "w" : "-");
 	putf((sb.st_mode & S_IXUSR) ? "x" : "-");
@@ -46,7 +52,7 @@ static int	nb_length(long nb)
 	return (pad);
 }
 
-static void	print_middle(struct stat sb, t_pad pad, int i)
+static void	print_middle(struct stat sb, t_pad pad, int i, char *options)
 {
 	int			pad_l;
 	long		nb_l;
@@ -56,11 +62,15 @@ static void	print_middle(struct stat sb, t_pad pad, int i)
 	while (++i < pad.pad_links - pad_l)
 		putf(" ");
 	putf("  %l ", (long)sb.st_nlink);
-	putf("%s", getpwuid(sb.st_uid)->pw_name);
-	i = -1;
-	while (++i < pad.pad_usr - (int)ft_strlen(getpwuid(sb.st_uid)->pw_name))
-		putf(" ");
-	putf("  %s", getgrgid(sb.st_gid)->gr_name);
+	if (!has(options, 'g'))
+	{
+		putf("%s", getpwuid(sb.st_uid)->pw_name);
+		i = -1;
+		while (++i < pad.pad_usr - (int)ft_strlen(getpwuid(sb.st_uid)->pw_name))
+			putf(" ");
+		putf("  ");
+	}
+	putf("%s", getgrgid(sb.st_gid)->gr_name);
 	i = -1;
 	while (++i < pad.pad_grp - (int)ft_strlen(getgrgid(sb.st_gid)->gr_name))
 		putf(" ");
@@ -93,16 +103,16 @@ static void	print_size(struct stat sb, t_pad pad, int i)
 	}
 }
 
-void		ls_file(char *path, t_pad pad)
+void		ls_file(char *path, t_pad pad, char *options)
 {
 	struct stat	sb;
 	char		*date;
 
 	sb = e_lstat(path);
 	print_mode(sb);
-	print_middle(sb, pad, -1);
+	print_middle(sb, pad, -1, options);
 	print_size(sb, pad, -1);
-	if (time(0) - sb.st_mtime > 15552000 || time(0) - sb.st_mtime < -60 * 60)
+	if (time(0) - sb.st_mtime > 15724800 || time(0) - sb.st_mtime < -60 * 60)
 		date = ft_strjoin(ft_strsub(ctime(&sb.st_mtime), 4, 7),
 		ft_strsub(ctime(&sb.st_mtime), 19, 5));
 	else
