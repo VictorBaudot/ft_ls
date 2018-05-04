@@ -5,3 +5,5 @@
 !auteur
 !.gitignore
 !libft
+!*.pdf
+!README*
